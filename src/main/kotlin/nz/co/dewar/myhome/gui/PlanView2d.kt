@@ -12,6 +12,8 @@ import javafx.scene.shape.Rectangle
 import kotlinx.serialization.json.Json
 import nz.co.dewar.myhome.model.Plan
 import nz.co.dewar.myhome.graphics2d.WallRenderer
+import nz.co.dewar.myhome.gui.ApplicationContext.level
+import nz.co.dewar.myhome.gui.ApplicationContext.plan
 import nz.co.dewar.myhome.model.SelectableItem
 import java.io.File
 
@@ -25,9 +27,6 @@ class PlanView2d {
     var scale = 20.0
     private var lastMouseInPane = Point2D(0.0, 0.0)
     private var lastMouseInScene = Point2D(0.0, 0.0)
-
-    lateinit var plan: Plan
-    var level: Int = 0
 
     /** All selected items; the last item is the active selection, the others are other items matching the clicked position */
     var selectedItems: MutableList<SelectableItem> = mutableListOf()
@@ -145,44 +144,21 @@ class PlanView2d {
             onUpdate?.invoke()
         }
 
-        val json = Json { ignoreUnknownKeys = true }
-        val inputFile = File("C:\\Users\\George\\code\\myhome\\data\\McKeefry.json")
-        plan = json.decodeFromString<Plan>(inputFile.readText())
-        level = 0
+        renderPlan()
+    }
 
-//        for(building in data.buildings) {
-//            println("Building: ${building.name}")
-//            println("  Floors:")
-//            for (floor in building.levels) {
-//                println("    Floor ${floor.number}: ${floor.name}")
-//                println("      Rooms:")
-//                for (wall in floor.walls) {
-//                    println("        Wall: ${wall.id} from ${wall.start} to ${wall.end}")
-//                    for (opening in wall.openings) {
-//                        println("          Opening: ${opening.id} at ${opening.distanceAlongWall}")
-//                        for (item in opening.contents) {
-//                            println("            Item: ${item.id} of type ${item::class.simpleName}")
-//                        }
-//                    }
-//                }
-//                for (room in floor.rooms) {
-//                    println("        Room: ${room.name}")
-//                }
-//            }
-//        }
+    fun renderPlan() {
+        content.children.clear()
 
-        val house = plan.buildings[0]
-        val wallRenderer = WallRenderer(house)
-        val wallsShape = wallRenderer.getWallsShape()
+        val wallsShape = WallRenderer.renderWalls(plan.getWallsOnLevel(level))
         content.children.add(wallsShape)
-        for (wall in house.levels[level].walls) {
+        for (wall in plan.getWallsOnLevel(level)) {
             for (opening in wall.openings) {
                 for (item in opening.contents) {
                     println("Rendering item ${item.id} of type ${item::class.simpleName} in opening ${opening.id} on wall ${wall.id}")
                     val shape = item.render2D(wall, opening)
                     content.children.add(shape)
                 }
-
             }
         }
     }

@@ -10,11 +10,11 @@ import javafx.scene.shape.Shape
 import nz.co.dewar.myhome.model.Building
 import nz.co.dewar.myhome.model.Wall
 
-class WallRenderer(val building: Building) {
-    fun getWallsShape(): Shape {
-        val floor = building.levels[0]
+object WallRenderer {
+    /** Render a collection of walls as a shape, taking into account its openings */
+    fun renderWalls(walls: List<Wall>): Shape {
         var wallArea: Shape? = null
-        for (wall in floor.walls) {
+        for (wall in walls) {
             var path: Shape = wall.areaPolygon
 
             for (opening in wall.openings) {
