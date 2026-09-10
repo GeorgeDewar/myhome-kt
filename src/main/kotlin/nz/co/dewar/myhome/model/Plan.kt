@@ -1,4 +1,4 @@
-package org.example.model
+package nz.co.dewar.myhome.model
 
 import kotlinx.serialization.Serializable
 

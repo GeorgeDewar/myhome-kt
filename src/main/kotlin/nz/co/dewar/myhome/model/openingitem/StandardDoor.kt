@@ -1,4 +1,4 @@
-package org.example.model.openingitem
+package nz.co.dewar.myhome.model.openingitem
 
 import javafx.scene.Group
 import javafx.scene.paint.Color
@@ -8,9 +8,9 @@ import javafx.scene.shape.Rectangle
 import javafx.scene.transform.Rotate
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.example.model.Wall
-import org.example.graphics2d.Polygon
-import org.example.model.Opening
+import nz.co.dewar.myhome.model.Wall
+import nz.co.dewar.myhome.graphics2d.Polygon
+import nz.co.dewar.myhome.model.Opening
 
 enum class HingeSide {
     @SerialName("left")

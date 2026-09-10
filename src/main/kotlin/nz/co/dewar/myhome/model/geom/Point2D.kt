@@ -1,4 +1,4 @@
-package org.example.model.geom
+package nz.co.dewar.myhome.model.geom
 
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer

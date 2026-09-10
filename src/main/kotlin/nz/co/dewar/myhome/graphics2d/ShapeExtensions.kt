@@ -1,9 +1,9 @@
-package org.example.graphics2d
+package nz.co.dewar.myhome.graphics2d
 
 import javafx.scene.shape.Line
 import javafx.scene.shape.Polygon
-import org.example.model.geom.Point2D
-import org.example.model.geom.Vector2D
+import nz.co.dewar.myhome.model.geom.Point2D
+import nz.co.dewar.myhome.model.geom.Vector2D
 
 fun Line(start: Point2D, end: Point2D): Line {
     return Line(start.x, start.y, end.x, end.y)

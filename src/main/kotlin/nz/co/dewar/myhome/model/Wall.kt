@@ -1,12 +1,12 @@
-package org.example.model
+package nz.co.dewar.myhome.model
 
 import javafx.scene.shape.Polygon
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
-import org.example.model.Opening
-import org.example.model.SelectableItem
-import org.example.model.geom.Point2D
-import org.example.model.geom.Vector2D
+import nz.co.dewar.myhome.model.Opening
+import nz.co.dewar.myhome.model.SelectableItem
+import nz.co.dewar.myhome.model.geom.Point2D
+import nz.co.dewar.myhome.model.geom.Vector2D
 
 @Serializable
 data class Wall(

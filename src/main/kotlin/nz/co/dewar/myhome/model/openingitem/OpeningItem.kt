@@ -1,13 +1,13 @@
-package org.example.model.openingitem
+package nz.co.dewar.myhome.model.openingitem
 
 import javafx.scene.Group
 import javafx.scene.shape.Polygon
 import javafx.scene.shape.Shape
 import kotlinx.serialization.Serializable
-import org.example.model.Wall
-import org.example.graphics2d.Line
-import org.example.model.Opening
-import org.example.model.SelectableItem
+import nz.co.dewar.myhome.model.Wall
+import nz.co.dewar.myhome.graphics2d.Line
+import nz.co.dewar.myhome.model.Opening
+import nz.co.dewar.myhome.model.SelectableItem
 
 @Serializable
 sealed class OpeningItem(

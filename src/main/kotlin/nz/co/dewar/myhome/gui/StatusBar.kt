@@ -1,4 +1,4 @@
-package org.example.gui
+package nz.co.dewar.myhome.gui
 
 import javafx.geometry.Insets
 import javafx.geometry.Orientation

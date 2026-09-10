@@ -1,4 +1,4 @@
-package org.example.graphics3d
+package nz.co.dewar.myhome.graphics3d
 
 import javafx.scene.Group
 import javafx.scene.Scene

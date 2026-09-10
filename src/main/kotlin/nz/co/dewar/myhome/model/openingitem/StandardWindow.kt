@@ -1,15 +1,15 @@
-package org.example.model.openingitem
+package nz.co.dewar.myhome.model.openingitem
 
 import javafx.scene.Group
 import javafx.scene.paint.Color
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.example.model.Wall
-import org.example.model.Opening
-import org.example.model.OpeningType
-import org.example.graphics2d.Line
-import org.example.graphics2d.minus
-import org.example.graphics2d.plus
+import nz.co.dewar.myhome.model.Wall
+import nz.co.dewar.myhome.model.Opening
+import nz.co.dewar.myhome.model.OpeningType
+import nz.co.dewar.myhome.graphics2d.Line
+import nz.co.dewar.myhome.graphics2d.minus
+import nz.co.dewar.myhome.graphics2d.plus
 
 @Serializable
 @SerialName("StandardWindow")

@@ -1,7 +1,7 @@
-package org.example.model
+package nz.co.dewar.myhome.model
 
 import kotlinx.serialization.Serializable
-import org.example.model.openingitem.OpeningItem
+import nz.co.dewar.myhome.model.openingitem.OpeningItem
 
 enum class OpeningType {
     EMPTY, DOOR, WINDOW, COMPOSITE
@@ -22,8 +22,8 @@ data class Opening(
     val type: OpeningType
         get() = when {
             contents.isEmpty() -> OpeningType.EMPTY
-            contents.all { it is org.example.model.openingitem.StandardDoor } -> OpeningType.DOOR
-            contents.all { it is org.example.model.openingitem.StandardWindow } -> OpeningType.WINDOW
+            contents.all { it is nz.co.dewar.myhome.model.openingitem.StandardDoor } -> OpeningType.DOOR
+            contents.all { it is nz.co.dewar.myhome.model.openingitem.StandardWindow } -> OpeningType.WINDOW
             else -> OpeningType.COMPOSITE
         }
 

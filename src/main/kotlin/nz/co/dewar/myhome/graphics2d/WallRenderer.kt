@@ -1,4 +1,4 @@
-package org.example.graphics2d
+package nz.co.dewar.myhome.graphics2d
 
 import javafx.beans.binding.Bindings
 import javafx.scene.paint.Color
@@ -7,8 +7,8 @@ import javafx.scene.shape.LineTo
 import javafx.scene.shape.MoveTo
 import javafx.scene.shape.Path
 import javafx.scene.shape.Shape
-import org.example.model.Building
-import org.example.model.Wall
+import nz.co.dewar.myhome.model.Building
+import nz.co.dewar.myhome.model.Wall
 
 class WallRenderer(val building: Building) {
     fun getWallsShape(): Shape {

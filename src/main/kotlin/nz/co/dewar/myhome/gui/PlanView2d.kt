@@ -1,4 +1,4 @@
-package org.example.gui
+package nz.co.dewar.myhome.gui
 
 import javafx.geometry.Point2D
 import javafx.scene.Group
@@ -10,9 +10,9 @@ import javafx.scene.paint.Color
 import javafx.scene.shape.Circle
 import javafx.scene.shape.Rectangle
 import kotlinx.serialization.json.Json
-import org.example.model.Plan
-import org.example.graphics2d.WallRenderer
-import org.example.model.SelectableItem
+import nz.co.dewar.myhome.model.Plan
+import nz.co.dewar.myhome.graphics2d.WallRenderer
+import nz.co.dewar.myhome.model.SelectableItem
 import java.io.File
 
 
