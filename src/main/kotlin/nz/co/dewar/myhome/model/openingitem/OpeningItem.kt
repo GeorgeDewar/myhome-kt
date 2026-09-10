@@ -4,10 +4,9 @@ import javafx.scene.Group
 import javafx.scene.shape.Polygon
 import javafx.scene.shape.Shape
 import kotlinx.serialization.Serializable
-import nz.co.dewar.myhome.model.Wall
-import nz.co.dewar.myhome.graphics2d.Line
 import nz.co.dewar.myhome.model.Opening
 import nz.co.dewar.myhome.model.SelectableItem
+import nz.co.dewar.myhome.model.Wall
 
 @Serializable
 sealed class OpeningItem(

@@ -1,14 +1,11 @@
 package nz.co.dewar.myhome
 
 import javafx.application.Application
-import javafx.scene.canvas.Canvas
-import javafx.scene.shape.Shape
 import javafx.stage.Stage
 import kotlinx.serialization.json.Json
-import nz.co.dewar.myhome.model.Plan
-import nz.co.dewar.myhome.graphics2d.WallRenderer
 import nz.co.dewar.myhome.gui.ApplicationContext
 import nz.co.dewar.myhome.gui.MainWindow
+import nz.co.dewar.myhome.model.Plan
 import java.io.File
 
 class MyHomeApplication : Application() {

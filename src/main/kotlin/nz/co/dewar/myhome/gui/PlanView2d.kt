@@ -9,14 +9,10 @@ import javafx.scene.layout.Pane
 import javafx.scene.paint.Color
 import javafx.scene.shape.Circle
 import javafx.scene.shape.Rectangle
-import kotlinx.serialization.json.Json
-import nz.co.dewar.myhome.model.Plan
 import nz.co.dewar.myhome.graphics2d.WallRenderer
 import nz.co.dewar.myhome.gui.ApplicationContext.level
 import nz.co.dewar.myhome.gui.ApplicationContext.plan
 import nz.co.dewar.myhome.model.SelectableItem
-import java.io.File
-
 
 class PlanView2d {
     val pane = Pane()

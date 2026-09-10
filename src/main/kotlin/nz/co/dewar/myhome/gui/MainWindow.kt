@@ -6,7 +6,6 @@ import javafx.scene.control.Menu
 import javafx.scene.control.MenuBar
 import javafx.scene.control.MenuItem
 import javafx.scene.layout.BorderPane
-import javafx.scene.layout.Priority
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
 import kotlin.math.roundToInt
@@ -33,9 +32,11 @@ class MainWindow(private val primaryStage: Stage) {
 
         val statusBar = StatusBar()
         planView2d.onUpdate = {
-            statusBar.cursorPositionLabel.text = "Cursor: (${(planView2d.cursorPositionWorld.x * 1000).roundToInt()}mm, ${(planView2d.cursorPositionWorld.y * 1000).roundToInt()}mm)"
+            statusBar.cursorPositionLabel.text =
+                "Cursor: (${(planView2d.cursorPositionWorld.x * 1000).roundToInt()}mm, ${(planView2d.cursorPositionWorld.y * 1000).roundToInt()}mm)"
             statusBar.scaleLabel.text = "Scale: ${planView2d.scale}"
-            statusBar.offsetLabel.text = "Offset: (${(planView2d.offset.x * 1000).roundToInt()}mm, ${(planView2d.offset.y * 1000).roundToInt()}mm)"
+            statusBar.offsetLabel.text =
+                "Offset: (${(planView2d.offset.x * 1000).roundToInt()}mm, ${(planView2d.offset.y * 1000).roundToInt()}mm)"
         }
         root.bottom = statusBar.root
 

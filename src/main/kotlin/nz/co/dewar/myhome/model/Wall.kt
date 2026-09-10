@@ -3,8 +3,6 @@ package nz.co.dewar.myhome.model
 import javafx.scene.shape.Polygon
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
-import nz.co.dewar.myhome.model.Opening
-import nz.co.dewar.myhome.model.SelectableItem
 import nz.co.dewar.myhome.model.geom.Point2D
 import nz.co.dewar.myhome.model.geom.Vector2D
 
@@ -21,6 +19,7 @@ data class Wall(
 
     @Transient
     val vector = Vector2D(start, end)
+
     @Transient
     val unitDirection = vector.unit()
 

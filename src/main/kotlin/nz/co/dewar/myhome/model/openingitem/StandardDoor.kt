@@ -3,18 +3,17 @@ package nz.co.dewar.myhome.model.openingitem
 import javafx.scene.Group
 import javafx.scene.paint.Color
 import javafx.scene.shape.Arc
-import javafx.scene.shape.Polygon
-import javafx.scene.shape.Rectangle
 import javafx.scene.transform.Rotate
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import nz.co.dewar.myhome.model.Wall
 import nz.co.dewar.myhome.graphics2d.Polygon
 import nz.co.dewar.myhome.model.Opening
+import nz.co.dewar.myhome.model.Wall
 
 enum class HingeSide {
     @SerialName("left")
     LEFT,
+
     @SerialName("right")
     RIGHT
 }
@@ -22,6 +21,7 @@ enum class HingeSide {
 enum class SwingDirection {
     @SerialName("in")
     INWARD,
+
     @SerialName("out")
     OUTWARD
 }
@@ -39,7 +39,8 @@ class StandardDoor(
         val doorStart = wall.start + wall.unitDirection * (opening.edgeDistanceFromWall + posX!!) / 1000.0
         val doorEnd = doorStart + wall.unitDirection * width!! / 1000.0
         val hingePosCentre = if (hingeSide == HingeSide.LEFT) doorStart else doorEnd
-        val hingePosNormal = wall.unitDirection.normal() * wall.thickness * (if (swingDirection == SwingDirection.INWARD) 0.5 else -0.5)
+        val hingePosNormal =
+            wall.unitDirection.normal() * wall.thickness * (if (swingDirection == SwingDirection.INWARD) 0.5 else -0.5)
         val hingePos = hingePosCentre + hingePosNormal
 
         val closedAngle = if (hingeSide == HingeSide.LEFT) wall.angle else (wall.angle + 180).mod(360.0)
