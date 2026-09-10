@@ -29,7 +29,6 @@ class MainWindow(private val primaryStage: Stage) {
         topContainer.children.addAll(menuBar, mainToolbar.toolBar)
         root.top = topContainer
 
-        //VBox.setVgrow(planView2d.pane, Priority.ALWAYS)
         root.center = planView2d.pane
 
         val statusBar = StatusBar()
