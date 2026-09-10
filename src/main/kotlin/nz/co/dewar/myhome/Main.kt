@@ -25,9 +25,5 @@ class MyHomeApplication : Application() {
 }
 
 fun main() {
-    try {
-        Application.launch(MyHomeApplication::class.java)
-    } catch (e: Exception) {
-        e.printStackTrace()
-    }
+    Application.launch(MyHomeApplication::class.java)
 }

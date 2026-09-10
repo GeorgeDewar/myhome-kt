@@ -13,8 +13,10 @@ import nz.co.dewar.myhome.graphics2d.WallRenderer
 import nz.co.dewar.myhome.gui.ApplicationContext.level
 import nz.co.dewar.myhome.gui.ApplicationContext.plan
 import nz.co.dewar.myhome.model.SelectableItem
+import org.slf4j.LoggerFactory
 
 class PlanView2d {
+    private val logger = LoggerFactory.getLogger(PlanView2d::class.java)
     val pane = Pane()
 
     var onUpdate: (() -> Unit)? = null
@@ -115,7 +117,7 @@ class PlanView2d {
                 onUpdate?.invoke()
 
                 for (item in selectedItems) {
-                    println("Selected item: $item")
+                    logger.info("Selected item: $item")
                 }
             }
         }
@@ -146,12 +148,13 @@ class PlanView2d {
     fun renderPlan() {
         content.children.clear()
 
+        logger.debug("Rendering walls")
         val wallsShape = WallRenderer.renderWalls(plan.getWallsOnLevel(level))
         content.children.add(wallsShape)
         for (wall in plan.getWallsOnLevel(level)) {
             for (opening in wall.openings) {
                 for (item in opening.contents) {
-                    println("Rendering item ${item.id} of type ${item::class.simpleName} in opening ${opening.id} on wall ${wall.id}")
+                    logger.debug("Rendering item ${item.id} of type ${item::class.simpleName} in opening ${opening.id} on wall ${wall.id}")
                     val shape = item.render2D(wall, opening)
                     content.children.add(shape)
                 }
