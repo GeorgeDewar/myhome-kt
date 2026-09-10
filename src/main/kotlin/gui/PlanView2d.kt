@@ -10,10 +10,8 @@ import javafx.scene.paint.Color
 import javafx.scene.shape.Circle
 import javafx.scene.shape.Rectangle
 import kotlinx.serialization.json.Json
-import model.Document
-import model.Wall
+import model.Plan
 import org.example.`2d`.WallRenderer
-import org.example.model.OpeningType
 import org.example.model.SelectableItem
 import java.io.File
 
@@ -28,7 +26,7 @@ class PlanView2d {
     private var lastMouseInPane = Point2D(0.0, 0.0)
     private var lastMouseInScene = Point2D(0.0, 0.0)
 
-    lateinit var plan: Document
+    lateinit var plan: Plan
     var level: Int = 0
 
     /** All selected items; the last item is the active selection, the others are other items matching the clicked position */
@@ -149,7 +147,7 @@ class PlanView2d {
 
         val json = Json { ignoreUnknownKeys = true }
         val inputFile = File("C:\\Users\\George\\code\\myhome\\data\\McKeefry.json")
-        plan = json.decodeFromString<Document>(inputFile.readText())
+        plan = json.decodeFromString<Plan>(inputFile.readText())
         level = 0
 
 //        for(building in data.buildings) {

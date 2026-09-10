@@ -5,7 +5,7 @@ import javafx.scene.canvas.Canvas
 import javafx.scene.shape.Shape
 import javafx.stage.Stage
 import kotlinx.serialization.json.Json
-import model.Document
+import model.Plan
 import org.example.`2d`.WallRenderer
 import org.example.gui.MainWindow
 import java.io.File
@@ -45,7 +45,7 @@ class MyHomeApplication : Application() {
     fun renderPlan(): Shape {
         val json = Json { ignoreUnknownKeys = true }
         val inputFile = File("C:\\Users\\George\\code\\myhome\\data\\McKeefry.json")
-        val data = json.decodeFromString<Document>(inputFile.readText())
+        val data = json.decodeFromString<Plan>(inputFile.readText())
 
         for(building in data.buildings) {
             println("Building: ${building.name}")

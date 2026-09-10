@@ -3,7 +3,7 @@ package model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Document(
+data class Plan(
     val buildings: List<Building>
 ) {
     fun getWallsOnLevel(level: Int): List<Wall> {

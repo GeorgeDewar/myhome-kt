@@ -17,7 +17,7 @@ data class Wall(
     val openings: List<Opening> = emptyList()
 ) : SelectableItem {
     @Transient
-    lateinit var floor: Floor
+    lateinit var level: Level
 
     @Transient
     val vector = Vector2D(start, end)
