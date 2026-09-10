@@ -1,13 +1,8 @@
 package nz.co.dewar.myhome.graphics2d
 
-import javafx.beans.binding.Bindings
 import javafx.scene.paint.Color
-import javafx.scene.shape.ClosePath
-import javafx.scene.shape.LineTo
-import javafx.scene.shape.MoveTo
 import javafx.scene.shape.Path
 import javafx.scene.shape.Shape
-import nz.co.dewar.myhome.model.Building
 import nz.co.dewar.myhome.model.Wall
 
 object WallRenderer {

@@ -9,6 +9,7 @@ import javafx.scene.layout.Pane
 import javafx.scene.paint.Color
 import javafx.scene.shape.Circle
 import javafx.scene.shape.Rectangle
+import javafx.scene.shape.Shape
 import nz.co.dewar.myhome.graphics2d.WallRenderer
 import nz.co.dewar.myhome.gui.ApplicationContext.level
 import nz.co.dewar.myhome.gui.ApplicationContext.plan
@@ -116,6 +117,8 @@ class PlanView2d {
                 for (item in selectedItems) {
                     logger.info("Selected item: $item")
                 }
+
+                renderPlan()
             }
         }
 
@@ -149,13 +152,35 @@ class PlanView2d {
         val wallsShape = WallRenderer.renderWalls(plan.getWallsOnLevel(level))
         content.children.add(wallsShape)
         for (wall in plan.getWallsOnLevel(level)) {
+            if (selectedItems.isNotEmpty() && selectedItems.last() == wall) {
+                val highlightArea = getSelectionHighlight(wall.areaPolygon)
+                content.children.add(highlightArea)
+            }
+
             for (opening in wall.openings) {
+                if (selectedItems.isNotEmpty() && selectedItems.last() == opening) {
+                    val highlightArea = getSelectionHighlight(wall.openingPolygon(opening))
+                    content.children.add(highlightArea)
+                }
+
                 for (item in opening.contents) {
                     logger.debug("Rendering item ${item.id} of type ${item::class.simpleName} in opening ${opening.id} on wall ${wall.id}")
                     val shape = item.render2D(wall, opening)
                     content.children.add(shape)
+                    if (selectedItems.isNotEmpty() && selectedItems.last() == item) {
+                        logger.info("Highlighting selected item ${item.id} of type ${item::class.simpleName} in opening ${opening.id} on wall ${wall.id}")
+                        val highlightArea = getSelectionHighlight(item.clickableArea(wall, opening))
+                        content.children.add(highlightArea)
+                    }
                 }
             }
         }
+    }
+
+    private fun getSelectionHighlight(highlightArea: Shape): Shape {
+        highlightArea.fill = Color.color(0.0, 0.0, 0.0, 0.15)
+        highlightArea.stroke = Color.GREY
+        highlightArea.strokeWidth = 0.005
+        return highlightArea
     }
 }
