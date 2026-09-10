@@ -8,7 +8,7 @@ import javafx.scene.shape.Rectangle
 import javafx.scene.transform.Rotate
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import model.Wall
+import org.example.model.Wall
 import org.example.graphics2d.Polygon
 import org.example.model.Opening
 

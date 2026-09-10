@@ -5,8 +5,8 @@ import javafx.scene.canvas.Canvas
 import javafx.scene.shape.Shape
 import javafx.stage.Stage
 import kotlinx.serialization.json.Json
-import model.Plan
-import org.example.`2d`.WallRenderer
+import org.example.model.Plan
+import org.example.graphics2d.WallRenderer
 import org.example.gui.MainWindow
 import java.io.File
 

@@ -4,7 +4,7 @@ import javafx.scene.Group
 import javafx.scene.paint.Color
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import model.Wall
+import org.example.model.Wall
 import org.example.model.Opening
 import org.example.model.OpeningType
 import org.example.graphics2d.Line

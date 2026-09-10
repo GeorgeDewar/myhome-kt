@@ -4,7 +4,7 @@ import javafx.scene.Group
 import javafx.scene.shape.Polygon
 import javafx.scene.shape.Shape
 import kotlinx.serialization.Serializable
-import model.Wall
+import org.example.model.Wall
 import org.example.graphics2d.Line
 import org.example.model.Opening
 import org.example.model.SelectableItem

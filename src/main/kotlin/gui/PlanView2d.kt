@@ -10,8 +10,8 @@ import javafx.scene.paint.Color
 import javafx.scene.shape.Circle
 import javafx.scene.shape.Rectangle
 import kotlinx.serialization.json.Json
-import model.Plan
-import org.example.`2d`.WallRenderer
+import org.example.model.Plan
+import org.example.graphics2d.WallRenderer
 import org.example.model.SelectableItem
 import java.io.File
 

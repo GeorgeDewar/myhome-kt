@@ -1,4 +1,4 @@
-package model
+package org.example.model
 
 import javafx.scene.shape.Polygon
 import kotlinx.serialization.Serializable
