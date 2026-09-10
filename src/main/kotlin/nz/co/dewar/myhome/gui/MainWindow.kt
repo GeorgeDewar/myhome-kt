@@ -13,6 +13,7 @@ import kotlin.math.roundToInt
 class MainWindow(private val primaryStage: Stage) {
     val root = BorderPane()
     val planView2d = PlanView2d()
+    val itemTree = ItemTreeView()
 
     init {
         val scene = Scene(root, 800.0, 600.0)
@@ -27,6 +28,8 @@ class MainWindow(private val primaryStage: Stage) {
         val topContainer = VBox()
         topContainer.children.addAll(menuBar, mainToolbar.toolBar)
         root.top = topContainer
+
+        root.left = itemTree.treeView
 
         root.center = planView2d.pane
 

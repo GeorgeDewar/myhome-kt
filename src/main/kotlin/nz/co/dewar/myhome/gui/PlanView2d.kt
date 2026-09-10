@@ -12,7 +12,7 @@ import javafx.scene.shape.Rectangle
 import nz.co.dewar.myhome.graphics2d.WallRenderer
 import nz.co.dewar.myhome.gui.ApplicationContext.level
 import nz.co.dewar.myhome.gui.ApplicationContext.plan
-import nz.co.dewar.myhome.model.SelectableItem
+import nz.co.dewar.myhome.gui.ApplicationContext.selectedItems
 import org.slf4j.LoggerFactory
 
 class PlanView2d {
@@ -25,9 +25,6 @@ class PlanView2d {
     var scale = 20.0
     private var lastMouseInPane = Point2D(0.0, 0.0)
     private var lastMouseInScene = Point2D(0.0, 0.0)
-
-    /** All selected items; the last item is the active selection, the others are other items matching the clicked position */
-    var selectedItems: MutableList<SelectableItem> = mutableListOf()
 
     val cursorPositionWorld: Point2D
         get() = content.sceneToLocal(lastMouseInScene)

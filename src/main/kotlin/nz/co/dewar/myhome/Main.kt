@@ -19,6 +19,7 @@ class MyHomeApplication : Application() {
         ApplicationContext.level = 0
 
         mainWindow.planView2d.renderPlan()
+        mainWindow.itemTree.populateTree()
 
         primaryStage.show()
     }
