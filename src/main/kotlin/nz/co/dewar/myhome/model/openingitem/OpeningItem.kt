@@ -4,6 +4,7 @@ import javafx.scene.Group
 import javafx.scene.shape.Polygon
 import javafx.scene.shape.Shape
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import nz.co.dewar.myhome.model.Opening
 import nz.co.dewar.myhome.model.SelectableItem
 import nz.co.dewar.myhome.model.Wall
@@ -17,6 +18,9 @@ sealed class OpeningItem(
     /** Vertical offset from the top of the opening */
     var posY: Double? = null
 ) : SelectableItem {
+    @Transient
+    lateinit var opening: Opening
+
     abstract val id: String?
     abstract fun render2D(wall: Wall, opening: Opening): Group
 

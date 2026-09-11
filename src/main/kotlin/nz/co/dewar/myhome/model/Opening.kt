@@ -1,6 +1,7 @@
 package nz.co.dewar.myhome.model
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import nz.co.dewar.myhome.model.openingitem.OpeningItem
 
 enum class OpeningType {
@@ -16,6 +17,13 @@ data class Opening(
     val height: Double,
     val contents: List<OpeningItem> = emptyList()
 ) : SelectableItem {
+    @Transient
+    lateinit var wall: Wall
+
+    init {
+        contents.forEach { item -> item.opening = this }
+    }
+
     override val treeLabel = id
 
     val edgeDistanceFromWall: Double

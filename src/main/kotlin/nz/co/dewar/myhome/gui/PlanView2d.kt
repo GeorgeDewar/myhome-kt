@@ -4,6 +4,7 @@ import javafx.beans.binding.Bindings
 import javafx.beans.property.SimpleDoubleProperty
 import javafx.geometry.Point2D
 import javafx.scene.Group
+import javafx.scene.input.KeyCode
 import javafx.scene.input.MouseButton
 import javafx.scene.layout.Pane
 import javafx.scene.paint.Color
@@ -38,6 +39,8 @@ class PlanView2d {
         }
 
     init {
+        pane.isFocusTraversable = true
+
         // Keep the drawing area constrained to the center pane so it cannot paint over the
         // MenuBar/ToolBar region in the BorderPane.
         val clip = Rectangle().apply {
@@ -82,6 +85,7 @@ class PlanView2d {
         }
 
         pane.setOnMousePressed { event ->
+            pane.requestFocus()
             if (event.isPrimaryButtonDown) {
                 lastMouseInPane = Point2D(event.x, event.y)
                 lastMouseInScene = Point2D(event.sceneX, event.sceneY)
@@ -140,6 +144,20 @@ class PlanView2d {
             lastMouseInPane = Point2D(event.x, event.y)
             lastMouseInScene = Point2D(event.sceneX, event.sceneY)
             onUpdate?.invoke()
+        }
+
+        pane.onKeyPressed = { event ->
+            logger.debug("Key pressed: ${event.character}")
+            if (event.code == KeyCode.DELETE) {
+                logger.debug("Delete key pressed, deleting selected item")
+                if (selectedItems.isNotEmpty()) {
+                    val itemToDelete = selectedItems.last()
+                    logger.info("Deleting selected item: $itemToDelete")
+                    plan.deleteItem(itemToDelete)
+                    selectedItems = mutableListOf()
+                    onUpdate?.invoke()
+                }
+            }
         }
 
         ApplicationContext.planChangeListeners.add { renderPlan() }
