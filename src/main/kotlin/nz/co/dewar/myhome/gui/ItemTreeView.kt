@@ -1,5 +1,7 @@
 package nz.co.dewar.myhome.gui
 
+import javafx.collections.ListChangeListener
+import javafx.scene.control.SelectionMode
 import javafx.scene.control.TreeItem
 import javafx.scene.control.TreeView
 import nz.co.dewar.myhome.gui.ApplicationContext.plan
@@ -13,15 +15,11 @@ class ItemTreeView {
     val treeView = TreeView(treeRoot)
 
     init {
-        treeView.selectionModel.selectedItemProperty().addListener { observable, oldValue, newValue ->
-            if (newValue != null) {
-                val selectedItem = newValue.value
-                if (selectedItem is SelectableItem) {
-                    logger.debug("Tree item selected: ${newValue.value}")
-                    ApplicationContext.selectedItems = mutableListOf(selectedItem)
-                }
-            }
-        }
+        treeView.selectionModel.selectionMode = SelectionMode.MULTIPLE
+        treeView.selectionModel.selectedItems.addListener(ListChangeListener<TreeItem<PlanItem>> {
+            val selectedItems = treeView.selectionModel.selectedItems.mapNotNull { it.value as? SelectableItem }
+            ApplicationContext.selectedItems = selectedItems.toMutableList()
+        })
     }
 
     fun populateTree() {
