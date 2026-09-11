@@ -118,8 +118,7 @@ class PlanView2d {
                 for (item in selectedItems) {
                     logger.info("Selected item: $item")
                 }
-
-                renderPlan()
+                renderPlan() // Re-render the plan to show selection highlights
             }
         }
 
@@ -142,6 +141,10 @@ class PlanView2d {
             lastMouseInScene = Point2D(event.sceneX, event.sceneY)
             onUpdate?.invoke()
         }
+
+        ApplicationContext.planChangeListeners.add { renderPlan() }
+        ApplicationContext.levelChangeListeners.add { renderPlan() }
+        ApplicationContext.selectionChangeListeners.add { renderPlan() }
 
         renderPlan()
     }
