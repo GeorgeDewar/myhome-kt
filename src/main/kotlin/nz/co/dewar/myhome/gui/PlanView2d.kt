@@ -1,13 +1,14 @@
 package nz.co.dewar.myhome.gui
 
+import javafx.beans.binding.Bindings
+import javafx.beans.property.SimpleDoubleProperty
 import javafx.geometry.Point2D
 import javafx.scene.Group
 import javafx.scene.input.MouseButton
-import javafx.scene.layout.Background
-import javafx.scene.layout.BackgroundFill
 import javafx.scene.layout.Pane
 import javafx.scene.paint.Color
 import javafx.scene.shape.Circle
+import javafx.scene.shape.Line
 import javafx.scene.shape.Rectangle
 import javafx.scene.shape.Shape
 import nz.co.dewar.myhome.graphics2d.WallRenderer
@@ -23,7 +24,7 @@ class PlanView2d {
     var onUpdate: (() -> Unit)? = null
 
     private val content = Group()
-    var scale = 20.0
+    var scale = SimpleDoubleProperty(20.0)
     private var lastMouseInPane = Point2D(0.0, 0.0)
     private var lastMouseInScene = Point2D(0.0, 0.0)
 
@@ -46,11 +47,11 @@ class PlanView2d {
         pane.clip = clip
 
         // So we know we're rendering something
-        pane.background = Background(BackgroundFill(Color.LIGHTGRAY, null, null))
+        //pane.background = Background(BackgroundFill(Color.LIGHTGRAY, null, null))
 
         // Set initial scale
-        content.scaleX = scale
-        content.scaleY = scale
+        content.scaleX = scale.get()
+        content.scaleY = scale.get()
         content.translateX = 200.0
         content.translateY = 200.0
 
@@ -61,16 +62,16 @@ class PlanView2d {
         pane.setOnScroll { event ->
             val zoomFactor = if (event.deltaY > 0) 1.1 else 1.0 / 1.1
             val oldScale = scale
-            val newScale = (oldScale * zoomFactor).coerceIn(20.0, 200.0)
-            if (newScale == oldScale) {
+            val newScale = (oldScale.get() * zoomFactor).coerceIn(20.0, 200.0)
+            if (newScale == oldScale.get()) {
                 return@setOnScroll
             }
 
             val pivotInContent = content.sceneToLocal(event.sceneX, event.sceneY)
 
-            scale = newScale
-            content.scaleX = scale
-            content.scaleY = scale
+            scale.set(newScale)
+            content.scaleX = scale.get()
+            content.scaleY = scale.get()
 
             val pivotAfterZoom = content.localToScene(pivotInContent)
             content.translateX += event.sceneX - pivotAfterZoom.x
@@ -145,8 +146,27 @@ class PlanView2d {
         renderPlan()
     }
 
+    fun renderOriginMarker() {
+        val originMarkerGroup = Group()
+        val lengthProperty = Bindings.divide(20.0, scale)
+        val originMarkerV = Line(0.0, 0.0, 0.0, 0.0)
+        originMarkerV.startYProperty().bind(Bindings.multiply(-1.0, lengthProperty))
+        originMarkerV.endYProperty().bind(lengthProperty)
+        val originMarkerH = Line(0.0, 0.0, 0.0, 0.0)
+        originMarkerH.startXProperty().bind(Bindings.multiply(-1.0, lengthProperty))
+        originMarkerH.endXProperty().bind(lengthProperty)
+        listOf(originMarkerV, originMarkerH).forEach { line ->
+            line.stroke = Color.RED
+            line.strokeWidthProperty().bind(Bindings.divide(0.5, scale))
+            originMarkerGroup.children.add(line)
+        }
+
+        content.children.add(originMarkerGroup)
+    }
+
     fun renderPlan() {
         content.children.clear()
+        renderOriginMarker()
 
         logger.debug("Rendering walls")
         val wallsShape = WallRenderer.renderWalls(plan.getWallsOnLevel(level))
