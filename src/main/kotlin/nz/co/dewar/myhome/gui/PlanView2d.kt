@@ -146,6 +146,27 @@ class PlanView2d {
         renderPlan()
     }
 
+    fun renderGrid() {
+        // Starting with a naive approach of rendering from -40 to +40m in both X and Y directions, with a grid spacing of 1m
+        val gridGroup = Group()
+        val gridSpacing = 1.0 // 1 meter
+        val gridSize = 40.0 // 20 meters in each direction
+        val lineWidthProperty = Bindings.divide(0.5, scale)
+        for (x in -gridSize.toInt()..gridSize.toInt()) {
+            val line = Line(x * gridSpacing, -gridSize, x * gridSpacing, gridSize)
+            line.stroke = Color.LIGHTGRAY
+            line.strokeWidthProperty().bind(lineWidthProperty)
+            gridGroup.children.add(line)
+        }
+        for (y in -gridSize.toInt()..gridSize.toInt()) {
+            val line = Line(-gridSize, y * gridSpacing, gridSize, y * gridSpacing)
+            line.stroke = Color.LIGHTGRAY
+            line.strokeWidthProperty().bind(lineWidthProperty)
+            gridGroup.children.add(line)
+        }
+        content.children.add(gridGroup)
+    }
+
     fun renderOriginMarker() {
         val originMarkerGroup = Group()
         val lengthProperty = Bindings.divide(20.0, scale)
@@ -166,6 +187,7 @@ class PlanView2d {
 
     fun renderPlan() {
         content.children.clear()
+        renderGrid()
         renderOriginMarker()
 
         logger.debug("Rendering walls")
