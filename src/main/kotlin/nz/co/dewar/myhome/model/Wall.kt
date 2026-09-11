@@ -14,6 +14,8 @@ data class Wall(
     val thickness: Double = 0.1,
     val openings: List<Opening> = emptyList()
 ) : SelectableItem {
+    override val treeLabel = id
+
     @Transient
     lateinit var level: Level
 

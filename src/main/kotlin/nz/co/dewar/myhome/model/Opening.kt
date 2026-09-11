@@ -16,6 +16,8 @@ data class Opening(
     val height: Double,
     val contents: List<OpeningItem> = emptyList()
 ) : SelectableItem {
+    override val treeLabel = id
+
     val edgeDistanceFromWall: Double
         get() = distanceAlongWall - (width / 2)
 

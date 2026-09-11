@@ -5,7 +5,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Plan(
     val buildings: List<Building>
-) {
+) : PlanItem {
+    override val treeLabel = "Plan"
+
     fun getWallsOnLevel(level: Int): List<Wall> {
         return buildings.flatMap { building ->
             building.levels.find { it.number == level }?.walls ?: emptyList()

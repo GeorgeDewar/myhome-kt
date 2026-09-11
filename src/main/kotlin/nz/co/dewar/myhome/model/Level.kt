@@ -8,7 +8,9 @@ data class Level(
     val name: String,
     val walls: List<Wall> = emptyList(),
     val rooms: List<Room> = emptyList()
-) {
+) : PlanItem {
+    override val treeLabel = name
+
     init {
         walls.forEach { wall -> wall.level = this }
     }

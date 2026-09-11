@@ -34,6 +34,8 @@ class StandardDoor(
     val swingDirection: SwingDirection,
     val thickness: Double = 0.035,
 ) : OpeningItem() {
+    override val treeLabel = id ?: "Standard Door"
+
     override fun render2D(wall: Wall, opening: Opening): Group {
         val relativeOpenAngle = 90.0
         val doorStart = wall.start + wall.unitDirection * (opening.edgeDistanceFromWall + posX!!) / 1000.0

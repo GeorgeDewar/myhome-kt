@@ -118,7 +118,7 @@ class PlanView2d {
                 for (item in selectedItems) {
                     logger.info("Selected item: $item")
                 }
-                renderPlan() // Re-render the plan to show selection highlights
+                ApplicationContext.selectionChanged()
             }
         }
 
@@ -209,7 +209,7 @@ class PlanView2d {
                 }
 
                 for (item in opening.contents) {
-                    logger.debug("Rendering item ${item.id} of type ${item::class.simpleName} in opening ${opening.id} on wall ${wall.id}")
+                    logger.trace("Rendering item ${item.id} of type ${item::class.simpleName} in opening ${opening.id} on wall ${wall.id}")
                     val shape = item.render2D(wall, opening)
                     content.children.add(shape)
                     if (selectedItems.isNotEmpty() && selectedItems.last() == item) {

@@ -6,4 +6,6 @@ import kotlinx.serialization.Serializable
 data class Building(
     val name: String,
     val levels: List<Level>
-)
+) : PlanItem {
+    override val treeLabel = name
+}

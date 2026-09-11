@@ -4,16 +4,18 @@ import javafx.scene.Group
 import javafx.scene.paint.Color
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import nz.co.dewar.myhome.model.Wall
-import nz.co.dewar.myhome.model.Opening
-import nz.co.dewar.myhome.model.OpeningType
 import nz.co.dewar.myhome.graphics2d.Line
 import nz.co.dewar.myhome.graphics2d.minus
 import nz.co.dewar.myhome.graphics2d.plus
+import nz.co.dewar.myhome.model.Opening
+import nz.co.dewar.myhome.model.OpeningType
+import nz.co.dewar.myhome.model.Wall
 
 @Serializable
 @SerialName("StandardWindow")
 class StandardWindow(override val id: String? = null) : OpeningItem() {
+    override val treeLabel = id ?: "Standard Window"
+
     override fun render2D(wall: Wall, opening: Opening): Group {
         check(opening.type == OpeningType.WINDOW) { "Opening must be of type WINDOW" }
 
