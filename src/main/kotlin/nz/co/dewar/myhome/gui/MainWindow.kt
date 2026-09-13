@@ -37,7 +37,7 @@ class MainWindow(private val primaryStage: Stage) {
         planView2d.onUpdate = {
             statusBar.cursorPositionLabel.text =
                 "Cursor: (${(planView2d.cursorPositionWorld.x * 1000).roundToInt()}mm, ${(planView2d.cursorPositionWorld.y * 1000).roundToInt()}mm)"
-            statusBar.scaleLabel.text = "Scale: ${planView2d.scale}"
+            statusBar.scaleLabel.text = "Scale: ${"%.2f".format(planView2d.scale.value)}"
             statusBar.offsetLabel.text =
                 "Offset: (${(planView2d.offset.x * 1000).roundToInt()}mm, ${(planView2d.offset.y * 1000).roundToInt()}mm)"
         }
