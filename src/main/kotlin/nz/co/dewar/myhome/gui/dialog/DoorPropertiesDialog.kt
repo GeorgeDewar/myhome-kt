@@ -4,6 +4,7 @@ import javafx.scene.Scene
 import javafx.scene.control.Label
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
+import nz.co.dewar.myhome.gui.ApplicationContext
 import nz.co.dewar.myhome.gui.MainWindow
 import nz.co.dewar.myhome.gui.controls.HorizontalRadioGroup
 import nz.co.dewar.myhome.gui.controls.RadioGroupItem
@@ -27,14 +28,22 @@ class DoorPropertiesDialog(val mainWindow: MainWindow, val door: StandardDoor) {
         val hingeSideRadio = HorizontalRadioGroup(
             label = "Hinge Side:",
             values = HingeSide.entries.map { RadioGroupItem(it.name, it.label) },
-            selectedValue = door.hingeSide.name
+            selectedValue = door.hingeSide.name,
+            onChange = { newValue ->
+                door.hingeSide = HingeSide.valueOf(newValue)
+                ApplicationContext.planChanged()
+            }
         )
         root.children.add(hingeSideRadio.hBox)
 
         val swingDirectionRadio = HorizontalRadioGroup(
             label = "Swing Direction:",
             values = SwingDirection.entries.map { RadioGroupItem(it.name, it.label) },
-            selectedValue = door.swingDirection.name
+            selectedValue = door.swingDirection.name,
+            onChange = { newValue ->
+                door.swingDirection = SwingDirection.valueOf(newValue)
+                ApplicationContext.planChanged()
+            }
         )
         root.children.add(swingDirectionRadio.hBox)
 

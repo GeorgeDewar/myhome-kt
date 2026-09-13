@@ -30,9 +30,9 @@ enum class SwingDirection(val label: String) {
 @SerialName("StandardDoor")
 class StandardDoor(
     override val id: String? = null,
-    val hingeSide: HingeSide,
-    val swingDirection: SwingDirection,
-    val thickness: Double = 0.035,
+    var hingeSide: HingeSide,
+    var swingDirection: SwingDirection,
+    var thickness: Double = 0.035,
 ) : OpeningItem() {
     override val treeLabel = id ?: "Standard Door"
 
