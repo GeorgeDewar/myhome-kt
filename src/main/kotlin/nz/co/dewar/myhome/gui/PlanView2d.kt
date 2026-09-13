@@ -93,7 +93,9 @@ class PlanView2d(val mainWindow: MainWindow) {
         }
 
         pane.onMouseClicked = { event ->
-            if (event.button == MouseButton.PRIMARY) {
+            if (event.button == MouseButton.PRIMARY && event.clickCount == 2) {
+                editSelectedItem()
+            } else if (event.button == MouseButton.PRIMARY) {
                 selectedItems.clear()
 
                 val clickedPointInContent = content.sceneToLocal(event.sceneX, event.sceneY)
@@ -158,11 +160,7 @@ class PlanView2d(val mainWindow: MainWindow) {
                     onUpdate?.invoke()
                 }
             } else if (event.code == KeyCode.ENTER) {
-                if (selectedItems.isNotEmpty()) {
-                    val itemToEdit = selectedItems.last()
-                    logger.info("Editing selected item: $itemToEdit")
-                    mainWindow.showEditDialog(itemToEdit)
-                }
+                editSelectedItem()
             }
         }
 
@@ -171,6 +169,14 @@ class PlanView2d(val mainWindow: MainWindow) {
         ApplicationContext.selectionChangeListeners.add { renderPlan() }
 
         renderPlan()
+    }
+
+    fun editSelectedItem() {
+        if (selectedItems.isNotEmpty()) {
+            val itemToEdit = selectedItems.last()
+            logger.info("Editing selected item: $itemToEdit")
+            mainWindow.showEditDialog(itemToEdit)
+        }
     }
 
     fun renderGrid() {

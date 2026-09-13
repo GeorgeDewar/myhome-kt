@@ -13,6 +13,7 @@ class MainToolbar {
     }
 
     fun updateLevelButtons() {
+        toolBar.items.clear()
         val levelNumbers = plan.buildings.flatMap { it.levels }.map { it.number }.sorted()
         for (levelNumber in levelNumbers) {
             val levelNames =
