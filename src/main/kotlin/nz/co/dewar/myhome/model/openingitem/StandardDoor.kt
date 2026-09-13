@@ -10,20 +10,20 @@ import nz.co.dewar.myhome.graphics2d.Polygon
 import nz.co.dewar.myhome.model.Opening
 import nz.co.dewar.myhome.model.Wall
 
-enum class HingeSide {
+enum class HingeSide(val label: String) {
     @SerialName("left")
-    LEFT,
+    LEFT("Left"),
 
     @SerialName("right")
-    RIGHT
+    RIGHT("Right")
 }
 
-enum class SwingDirection {
+enum class SwingDirection(val label: String) {
     @SerialName("in")
-    INWARD,
+    INWARD("Inward"),
 
     @SerialName("out")
-    OUTWARD
+    OUTWARD("Outward")
 }
 
 @Serializable
