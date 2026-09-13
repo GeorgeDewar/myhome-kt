@@ -8,6 +8,15 @@ import kotlinx.serialization.Transient
 import nz.co.dewar.myhome.model.Opening
 import nz.co.dewar.myhome.model.SelectableItem
 import nz.co.dewar.myhome.model.Wall
+import kotlin.reflect.KClass
+
+enum class OpeningItemType(val description: String, val clazz: KClass<out OpeningItem>) {
+    SLIDING_DOOR("Sliding Door", SlidingDoor::class),
+    STANDARD_DOOR("Standard Door", StandardDoor::class),
+    STANDARD_WINDOW("Standard Window", StandardWindow::class);
+
+    override fun toString() = description
+}
 
 @Serializable
 sealed class OpeningItem(
