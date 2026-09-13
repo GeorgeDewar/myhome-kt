@@ -8,11 +8,14 @@ import javafx.scene.control.MenuItem
 import javafx.scene.layout.BorderPane
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
+import nz.co.dewar.myhome.gui.dialog.DoorPropertiesDialog
+import nz.co.dewar.myhome.model.PlanItem
+import nz.co.dewar.myhome.model.openingitem.StandardDoor
 import kotlin.math.roundToInt
 
-class MainWindow(private val primaryStage: Stage) {
+class MainWindow(val stage: Stage) {
     val root = BorderPane()
-    val planView2d = PlanView2d()
+    val planView2d = PlanView2d(this)
     val itemTree = ItemTreeView()
 
     init {
@@ -21,7 +24,7 @@ class MainWindow(private val primaryStage: Stage) {
         val menuBar = MenuBar()
         val fileMenu = Menu("_File")
         fileMenu.items.add(MenuItem("_Close").apply {
-            onAction = EventHandler { primaryStage.close() }
+            onAction = EventHandler { stage.close() }
         })
         menuBar.menus.add(fileMenu)
         val mainToolbar = MainToolbar()
@@ -43,6 +46,13 @@ class MainWindow(private val primaryStage: Stage) {
         }
         root.bottom = statusBar.root
 
-        primaryStage.scene = scene
+        stage.scene = scene
+    }
+
+    fun showEditDialog(planItem: PlanItem) {
+        val dialog = when (planItem) {
+            is StandardDoor -> DoorPropertiesDialog(this, planItem)
+            else -> println("No edit dialog available for ${planItem::class.simpleName}")
+        }
     }
 }

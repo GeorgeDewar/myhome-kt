@@ -18,7 +18,7 @@ import nz.co.dewar.myhome.gui.ApplicationContext.plan
 import nz.co.dewar.myhome.gui.ApplicationContext.selectedItems
 import org.slf4j.LoggerFactory
 
-class PlanView2d {
+class PlanView2d(val mainWindow: MainWindow) {
     private val logger = LoggerFactory.getLogger(PlanView2d::class.java)
     val pane = Pane()
 
@@ -156,6 +156,12 @@ class PlanView2d {
                     plan.deleteItem(itemToDelete)
                     selectedItems = mutableListOf()
                     onUpdate?.invoke()
+                }
+            } else if (event.code == KeyCode.ENTER) {
+                if (selectedItems.isNotEmpty()) {
+                    val itemToEdit = selectedItems.last()
+                    logger.info("Editing selected item: $itemToEdit")
+                    mainWindow.showEditDialog(itemToEdit)
                 }
             }
         }

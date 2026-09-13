@@ -4,7 +4,7 @@ import nz.co.dewar.myhome.model.Plan
 import nz.co.dewar.myhome.model.SelectableItem
 
 object ApplicationContext {
-    var plan: Plan = Plan(listOf())
+    var plan: Plan = Plan(mutableListOf())
         set(value) {
             field = value
             planChanged()
