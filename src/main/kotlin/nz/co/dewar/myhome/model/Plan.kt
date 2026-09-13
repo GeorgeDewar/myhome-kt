@@ -1,6 +1,7 @@
 package nz.co.dewar.myhome.model
 
 import kotlinx.serialization.Serializable
+import nz.co.dewar.myhome.model.openingitem.OpeningItem
 
 @Serializable
 data class Plan(
@@ -24,6 +25,7 @@ data class Plan(
             is Level -> item.building.levels.remove(item)
             is Wall -> item.level.walls.remove(item)
             is Opening -> item.wall.openings.remove(item)
+            is OpeningItem -> item.opening.contents.remove(item)
             else -> throw IllegalArgumentException("Unknown PlanItem type")
         }
     }

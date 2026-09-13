@@ -2,6 +2,7 @@ package nz.co.dewar.myhome.gui
 
 import javafx.collections.ListChangeListener
 import javafx.scene.control.SelectionMode
+import javafx.scene.control.TreeCell
 import javafx.scene.control.TreeItem
 import javafx.scene.control.TreeView
 import nz.co.dewar.myhome.gui.ApplicationContext.plan
@@ -20,6 +21,14 @@ class ItemTreeView {
             val selectedItems = treeView.selectionModel.selectedItems.mapNotNull { it.value as? SelectableItem }
             ApplicationContext.selectedItems = selectedItems.toMutableList()
         })
+        treeView.cellFactory = {
+            object : TreeCell<PlanItem>() {
+                override fun updateItem(item: PlanItem?, empty: Boolean) {
+                    super.updateItem(item, empty)
+                    text = item?.treeLabel
+                }
+            }
+        }
     }
 
     fun populateTree() {
