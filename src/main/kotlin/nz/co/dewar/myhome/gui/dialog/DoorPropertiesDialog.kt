@@ -1,5 +1,6 @@
 package nz.co.dewar.myhome.gui.dialog
 
+import javafx.geometry.Insets
 import javafx.scene.Scene
 import javafx.scene.control.Label
 import javafx.scene.layout.VBox
@@ -13,7 +14,7 @@ import nz.co.dewar.myhome.model.openingitem.StandardDoor
 import nz.co.dewar.myhome.model.openingitem.SwingDirection
 
 class DoorPropertiesDialog(val mainWindow: MainWindow, val door: StandardDoor) {
-    val root = VBox()
+    val root = VBox(8.0).apply { padding = Insets(8.0) }
     val scene = Scene(root, 640.0, 480.0)
     val stage = Stage()
 

@@ -17,9 +17,9 @@ class HorizontalRadioGroup(
     val hBox = HBox()
 
     init {
-        hBox.children.add(Label(label))
+        hBox.children.add(Label(label).apply { prefWidth = 100.0 })
         for (entry in values) {
-            val radioButton = RadioButton(entry.label)
+            val radioButton = RadioButton(entry.label).apply { prefWidth = 80.0 }
             radioButton.toggleGroup = toggleGroup
             if (selectedValue == entry.value) {
                 radioButton.isSelected = true

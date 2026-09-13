@@ -149,7 +149,6 @@ class PlanView2d(val mainWindow: MainWindow) {
         }
 
         pane.onKeyPressed = { event ->
-            logger.debug("Key pressed: ${event.character}")
             if (event.code == KeyCode.DELETE) {
                 logger.debug("Delete key pressed, deleting selected item")
                 if (selectedItems.isNotEmpty()) {

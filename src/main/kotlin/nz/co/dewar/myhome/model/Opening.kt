@@ -4,10 +4,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import nz.co.dewar.myhome.model.openingitem.OpeningItem
 
-enum class OpeningType {
-    EMPTY, DOOR, WINDOW, COMPOSITE
-}
-
 @Serializable
 data class Opening(
     val id: String,
@@ -28,14 +24,6 @@ data class Opening(
 
     val edgeDistanceFromWall: Double
         get() = distanceAlongWall - (width / 2)
-
-    val type: OpeningType
-        get() = when {
-            contents.isEmpty() -> OpeningType.EMPTY
-            contents.all { it is nz.co.dewar.myhome.model.openingitem.StandardDoor } -> OpeningType.DOOR
-            contents.all { it is nz.co.dewar.myhome.model.openingitem.StandardWindow } -> OpeningType.WINDOW
-            else -> OpeningType.COMPOSITE
-        }
 
     init {
         // Resolve dimensions of contents

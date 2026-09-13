@@ -8,7 +8,6 @@ import nz.co.dewar.myhome.graphics2d.Line
 import nz.co.dewar.myhome.graphics2d.minus
 import nz.co.dewar.myhome.graphics2d.plus
 import nz.co.dewar.myhome.model.Opening
-import nz.co.dewar.myhome.model.OpeningType
 import nz.co.dewar.myhome.model.Wall
 
 @Serializable
@@ -17,8 +16,6 @@ class StandardWindow(override val id: String? = null) : OpeningItem() {
     override val treeLabel = id ?: "Standard Window"
 
     override fun render2D(wall: Wall, opening: Opening): Group {
-        check(opening.type == OpeningType.WINDOW) { "Opening must be of type WINDOW" }
-
         val lineThickness = 0.01
         val windowStart = wall.start + wall.unitDirection * opening.edgeDistanceFromWall / 1000.0
         val windowEnd = windowStart + wall.unitDirection * opening.width / 1000.0
