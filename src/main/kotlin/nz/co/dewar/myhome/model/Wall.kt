@@ -12,7 +12,7 @@ data class Wall(
     val start: Point2D,
     val end: Point2D,
     val thickness: Double = 0.1,
-    val openings: List<Opening> = emptyList()
+    val openings: MutableList<Opening> = mutableListOf()
 ) : SelectableItem {
     init {
         openings.forEach { opening -> opening.wall = this }

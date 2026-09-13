@@ -15,7 +15,7 @@ data class Opening(
     val distanceFromFloor: Double,
     val width: Double,
     val height: Double,
-    val contents: List<OpeningItem> = emptyList()
+    val contents: MutableList<OpeningItem> = mutableListOf()
 ) : SelectableItem {
     @Transient
     lateinit var wall: Wall

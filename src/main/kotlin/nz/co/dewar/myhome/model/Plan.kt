@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Plan(
-    val buildings: List<Building>
+    val buildings: MutableList<Building>
 ) : PlanItem {
     override val treeLabel = "Plan"
 
@@ -20,10 +20,10 @@ data class Plan(
 
     fun deleteItem(item: PlanItem) {
         when (item) {
-            is Building -> buildings.toMutableList().remove(item)
-            is Level -> item.building.levels.toMutableList().remove(item)
-            is Wall -> item.level.walls.toMutableList().remove(item)
-            is Opening -> item.wall.openings.toMutableList().remove(item)
+            is Building -> buildings.remove(item)
+            is Level -> item.building.levels.remove(item)
+            is Wall -> item.level.walls.remove(item)
+            is Opening -> item.wall.openings.remove(item)
             else -> throw IllegalArgumentException("Unknown PlanItem type")
         }
     }

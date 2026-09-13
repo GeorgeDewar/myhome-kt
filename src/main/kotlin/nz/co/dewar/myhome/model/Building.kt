@@ -6,7 +6,7 @@ import kotlinx.serialization.Transient
 @Serializable
 data class Building(
     val name: String,
-    val levels: List<Level>
+    val levels: MutableList<Level>
 ) : PlanItem {
     @Transient
     lateinit var plan: Plan

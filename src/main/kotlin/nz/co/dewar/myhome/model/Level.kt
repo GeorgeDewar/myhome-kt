@@ -7,8 +7,8 @@ import kotlinx.serialization.Transient
 data class Level(
     val number: Int,
     val name: String,
-    val walls: List<Wall> = emptyList(),
-    val rooms: List<Room> = emptyList()
+    val walls: MutableList<Wall> = mutableListOf(),
+    val rooms: MutableList<Room> = mutableListOf()
 ) : PlanItem {
     override val treeLabel = name
 
