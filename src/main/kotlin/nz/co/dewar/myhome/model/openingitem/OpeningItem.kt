@@ -8,6 +8,7 @@ import kotlinx.serialization.Transient
 import nz.co.dewar.myhome.model.Opening
 import nz.co.dewar.myhome.model.SelectableItem
 import nz.co.dewar.myhome.model.Wall
+import nz.co.dewar.myhome.model.geom.Distance
 import kotlin.reflect.KClass
 
 enum class OpeningItemType(val description: String, val clazz: KClass<out OpeningItem>) {
@@ -20,12 +21,12 @@ enum class OpeningItemType(val description: String, val clazz: KClass<out Openin
 
 @Serializable
 sealed class OpeningItem(
-    var width: Double? = null,
-    var height: Double? = null,
+    var width: Distance? = null,
+    var height: Distance? = null,
     /** Horizontal offset from the left of the opening */
-    var posX: Double? = null,
+    var posX: Distance? = null,
     /** Vertical offset from the top of the opening */
-    var posY: Double? = null
+    var posY: Distance? = null
 ) : SelectableItem {
     @Transient
     lateinit var opening: Opening
@@ -35,10 +36,10 @@ sealed class OpeningItem(
 
     /** Returns the area that can be clicked to select this item */
     fun clickableArea(wall: Wall, opening: Opening): Shape {
-        val openingStart = wall.start + wall.unitDirection * opening.edgeDistanceFromWall / 1000.0
-        val itemStart = openingStart + wall.unitDirection * posX!! / 1000.0
-        val itemEnd = itemStart + wall.unitDirection * width!! / 1000.0
-        val halfThicknessNormal = wall.unitDirection.normal() * (wall.thickness / 2.0)
+        val openingStart = wall.start + wall.unitDirection * opening.edgeDistanceFromWall
+        val itemStart = openingStart + wall.unitDirection * posX!!
+        val itemEnd = itemStart + wall.unitDirection * width!!
+        val halfThicknessNormal = wall.unitDirection.normal() * (wall.thickness / 2)
 
         val points = listOf(
             itemStart + halfThicknessNormal,

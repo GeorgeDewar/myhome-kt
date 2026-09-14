@@ -3,15 +3,17 @@ package nz.co.dewar.myhome.model
 import javafx.scene.shape.Polygon
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
+import nz.co.dewar.myhome.model.geom.Distance
 import nz.co.dewar.myhome.model.geom.Point2D
 import nz.co.dewar.myhome.model.geom.Vector2D
+import nz.co.dewar.myhome.model.geom.metres
 
 @Serializable
 data class Wall(
     val id: String,
     val start: Point2D,
     val end: Point2D,
-    val thickness: Double = 0.1,
+    val thickness: Distance = 0.1.metres,
     val openings: MutableList<Opening> = mutableListOf()
 ) : SelectableItem {
     init {
@@ -53,8 +55,8 @@ data class Wall(
         val unitNormal = unitDirection.normal()
         val halfThicknessNormal = unitNormal * (thickness / 2.0)
 
-        val openingStart = start + (unitDirection * opening.edgeDistanceFromWall / 1000.0)
-        val openingEnd = openingStart + (unitDirection * opening.width / 1000.0)
+        val openingStart = start + (unitDirection * opening.edgeDistanceFromWall)
+        val openingEnd = openingStart + (unitDirection * opening.width)
 
         val points = listOf(
             openingStart + halfThicknessNormal,

@@ -2,15 +2,17 @@ package nz.co.dewar.myhome.model
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
+import nz.co.dewar.myhome.model.geom.Distance
+import nz.co.dewar.myhome.model.geom.sumOf
 import nz.co.dewar.myhome.model.openingitem.OpeningItem
 
 @Serializable
 data class Opening(
     val id: String,
-    val distanceAlongWall: Double,
-    val distanceFromFloor: Double,
-    val width: Double,
-    val height: Double,
+    val distanceAlongWall: Distance,
+    val distanceFromFloor: Distance,
+    val width: Distance,
+    val height: Distance,
     val contents: MutableList<OpeningItem> = mutableListOf()
 ) : SelectableItem {
     @Transient
@@ -22,13 +24,13 @@ data class Opening(
 
     override val treeLabel = id
 
-    val edgeDistanceFromWall: Double
-        get() = distanceAlongWall - (width / 2)
+    val edgeDistanceFromWall: Distance
+        get() = distanceAlongWall - (width / 2.0)
 
     init {
         // Resolve dimensions of contents
-        val currentWidthSum = contents.sumOf { it.width ?: 0.0 }
-        val currentHeightSum = contents.sumOf { it.height ?: 0.0 }
+        val currentWidthSum = contents.sumOf { it.width ?: Distance.ZERO }
+        val currentHeightSum = contents.sumOf { it.height ?: Distance.ZERO }
 
         check(currentWidthSum <= width) { "Total width of contents ($currentWidthSum) exceeds opening width ($width)" }
         check(currentHeightSum <= height) { "Total height of contents ($currentHeightSum) exceeds opening height ($height)" }
@@ -58,10 +60,10 @@ data class Opening(
         contents.forEach { item ->
             // Placeholder for logic to determine posX and posY based on alignment and distribution rules
             if (item.posX == null) {
-                item.posX = 0.0
+                item.posX = Distance.ZERO
             }
             if (item.posY == null) {
-                item.posY = 0.0
+                item.posY = Distance.ZERO
             }
         }
     }

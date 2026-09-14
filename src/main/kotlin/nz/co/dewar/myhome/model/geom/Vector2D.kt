@@ -8,7 +8,7 @@ data class Vector2D(val dX: Double, val dY: Double) {
     constructor(start: Point2D, end: Point2D) : this(end.x - start.x, end.y - start.y)
 
     val length
-        get() = sqrt(dX * dX + dY * dY)
+        get() = Distance(sqrt(dX * dX + dY * dY))
 
     /** The angle of the vector, in degrees, measured counter-clockwise from the positive x-axis. */
     val angle
@@ -18,6 +18,8 @@ data class Vector2D(val dX: Double, val dY: Double) {
     operator fun minus(v: Vector2D) = Vector2D(dX - v.dX, dY - v.dY)
     operator fun times(n: Double) = Vector2D(dX * n, dY * n)
     operator fun div(n: Double) = Vector2D(dX / n, dY / n)
+    operator fun times(n: Distance) = Vector2D(dX * n.metres, dY * n.metres)
+    operator fun div(n: Distance) = Vector2D(dX / n.metres, dY / n.metres)
 
     fun unit() = this / length
 

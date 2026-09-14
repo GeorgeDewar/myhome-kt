@@ -17,8 +17,8 @@ class StandardWindow(override val id: String? = null) : OpeningItem() {
 
     override fun render2D(wall: Wall, opening: Opening): Group {
         val lineThickness = 0.01
-        val windowStart = wall.start + wall.unitDirection * opening.edgeDistanceFromWall / 1000.0
-        val windowEnd = windowStart + wall.unitDirection * opening.width / 1000.0
+        val windowStart = wall.start + wall.unitDirection * opening.edgeDistanceFromWall
+        val windowEnd = windowStart + wall.unitDirection * opening.width
         val halfThicknessNormal = wall.unitDirection.normal() * (wall.thickness / 2.0)
 
         val centerLine = Line(windowStart, windowEnd)

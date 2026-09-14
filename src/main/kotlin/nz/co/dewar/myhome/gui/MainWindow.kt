@@ -26,6 +26,9 @@ class MainWindow(val stage: Stage) {
         fileMenu.items.add(MenuItem("_Close").apply {
             onAction = EventHandler { stage.close() }
         })
+        fileMenu.items.add(MenuItem("_Save").apply {
+            onAction = EventHandler { ApplicationContext.plan.save() }
+        })
         menuBar.menus.add(fileMenu)
         val mainToolbar = MainToolbar()
         val topContainer = VBox()

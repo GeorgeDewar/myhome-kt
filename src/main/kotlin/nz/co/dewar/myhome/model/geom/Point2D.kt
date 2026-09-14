@@ -17,11 +17,15 @@ data class Point2D(val x: Double, val y: Double) {
 
 object PositionSerializer : KSerializer<Point2D> {
     private val delegateSerializer = IntArraySerializer()
+
     @OptIn(ExperimentalSerializationApi::class)
     override val descriptor = SerialDescriptor("position", delegateSerializer.descriptor)
 
     override fun serialize(encoder: Encoder, value: Point2D) {
-        encoder.encodeSerializableValue(delegateSerializer, intArrayOf(value.x.roundToInt(), value.y.roundToInt()))
+        encoder.encodeSerializableValue(
+            delegateSerializer,
+            intArrayOf((value.x * 1000).roundToInt(), (value.y * 1000).roundToInt())
+        )
     }
 
     override fun deserialize(decoder: Decoder): Point2D {
