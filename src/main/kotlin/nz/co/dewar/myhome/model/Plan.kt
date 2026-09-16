@@ -1,5 +1,6 @@
 package nz.co.dewar.myhome.model
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import kotlinx.serialization.json.Json
@@ -8,7 +9,9 @@ import java.io.File
 
 @Serializable
 data class Plan(
-    val buildings: MutableList<Building>
+    @SerialName($$"$schema")
+    val schema: String? = null,
+    val buildings: MutableList<Building> = mutableListOf()
 ) : PlanItem {
     override val treeLabel = "Plan"
 
