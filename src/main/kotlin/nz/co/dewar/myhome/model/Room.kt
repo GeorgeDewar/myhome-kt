@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory
 
 @Serializable
 data class Room(
-    val name: String,
+    var name: String,
     val walls: MutableList<RoomWall>,
 ) : SelectableItem {
     private val logger: Logger = LoggerFactory.getLogger(Room::class.java)
@@ -32,8 +32,8 @@ data class Room(
             for (i in walls.indices) {
                 val wall1 = walls[i].wall
                 val wall2 = walls[(i + 1) % walls.size].wall
-                val wall1Line = wall1.centerLine //.extendedBy(wall1.thickness.value / 2)
-                val wall2Line = wall2.centerLine //.extendedBy(wall2.thickness.value / 2)
+                val wall1Line = wall1.centerLine
+                val wall2Line = wall2.centerLine
                 val intersection = wall1Line.intersection(wall2Line)
                     ?: throw IllegalArgumentException("Walls '${wall1.id}' and '${wall2.id}' of room '$name' do not intersect")
                 intersections.add(intersection)
@@ -60,5 +60,5 @@ data class Room(
             return roomName
         }
 
-    override val treeLabel = name
+    override val treeLabel get() = name
 }

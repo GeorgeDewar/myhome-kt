@@ -9,7 +9,9 @@ import javafx.scene.layout.BorderPane
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
 import nz.co.dewar.myhome.gui.dialog.DoorPropertiesDialog
+import nz.co.dewar.myhome.gui.dialog.RoomPropertiesDialog
 import nz.co.dewar.myhome.model.PlanItem
+import nz.co.dewar.myhome.model.Room
 import nz.co.dewar.myhome.model.openingitem.StandardDoor
 import kotlin.math.roundToInt
 
@@ -55,6 +57,7 @@ class MainWindow(val stage: Stage) {
     fun showEditDialog(planItem: PlanItem) {
         val dialog = when (planItem) {
             is StandardDoor -> DoorPropertiesDialog(this, planItem)
+            is Room -> RoomPropertiesDialog(this, planItem)
             else -> println("No edit dialog available for ${planItem::class.simpleName}")
         }
     }
