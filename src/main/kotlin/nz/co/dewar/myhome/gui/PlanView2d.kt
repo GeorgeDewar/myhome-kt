@@ -1,5 +1,6 @@
 package nz.co.dewar.myhome.gui
 
+import javafx.application.Platform
 import javafx.beans.binding.Bindings
 import javafx.beans.property.SimpleDoubleProperty
 import javafx.geometry.Point2D
@@ -85,7 +86,8 @@ class PlanView2d(val mainWindow: MainWindow) {
         }
 
         pane.setOnMousePressed { event ->
-            pane.requestFocus()
+            logger.debug("Mouse pressed in PlanView2d, requesting focus")
+            Platform.runLater { pane.requestFocus() }
             if (event.isPrimaryButtonDown) {
                 lastMouseInPane = Point2D(event.x, event.y)
                 lastMouseInScene = Point2D(event.sceneX, event.sceneY)
@@ -99,6 +101,13 @@ class PlanView2d(val mainWindow: MainWindow) {
                 selectedItems.clear()
 
                 val clickedPointInContent = content.sceneToLocal(event.sceneX, event.sceneY)
+
+                for (room in plan.getRoomsOnLevel(level)) {
+                    if (room.internalArea.contains(clickedPointInContent)) {
+                        selectedItems.add(room)
+                    }
+                }
+
                 for (wall in plan.getWallsOnLevel(level)) {
                     // Check if the clicked point is on the wall
                     if (wall.areaPolygon.contains(clickedPointInContent)) {
@@ -117,12 +126,6 @@ class PlanView2d(val mainWindow: MainWindow) {
                                 selectedItems.add(item)
                             }
                         }
-                    }
-                }
-
-                for (room in plan.getRoomsOnLevel(level)) {
-                    if (room.internalArea.contains(clickedPointInContent)) {
-                        selectedItems.add(room)
                     }
                 }
 

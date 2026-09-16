@@ -45,4 +45,11 @@ data class Level(
             }
         }
     }
+
+    fun removeWall(wall: Wall) {
+        if (rooms.any { it.walls.any { roomWall -> roomWall.wall == wall } }) {
+            throw IllegalArgumentException("Cannot remove wall '${wall.id}' because it is referenced by a room")
+        }
+        walls.remove(wall)
+    }
 }

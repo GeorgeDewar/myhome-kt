@@ -2,12 +2,11 @@ package nz.co.dewar.myhome.gui
 
 import javafx.event.EventHandler
 import javafx.scene.Scene
-import javafx.scene.control.Menu
-import javafx.scene.control.MenuBar
-import javafx.scene.control.MenuItem
+import javafx.scene.control.*
 import javafx.scene.layout.BorderPane
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
+import nz.co.dewar.myhome.graphics3d.Renderer3D
 import nz.co.dewar.myhome.gui.dialog.DoorPropertiesDialog
 import nz.co.dewar.myhome.gui.dialog.RoomPropertiesDialog
 import nz.co.dewar.myhome.model.PlanItem
@@ -17,7 +16,11 @@ import kotlin.math.roundToInt
 
 class MainWindow(val stage: Stage) {
     val root = BorderPane()
+    val tabPane = TabPane().apply {
+        isFocusTraversable = true
+    }
     val planView2d = PlanView2d(this)
+    val planView3d = Renderer3D()
     val itemTree = ItemTreeView()
 
     init {
@@ -39,7 +42,9 @@ class MainWindow(val stage: Stage) {
 
         root.left = itemTree.treeView
 
-        root.center = planView2d.pane
+        tabPane.tabs.add(Tab("2D View", planView2d.pane).apply { isClosable = false })
+        tabPane.tabs.add(Tab("3D View", planView3d.root).apply { isClosable = false })
+        root.center = tabPane
 
         val statusBar = StatusBar()
         planView2d.onUpdate = {

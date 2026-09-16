@@ -38,7 +38,7 @@ data class Plan(
         when (item) {
             is Building -> buildings.remove(item)
             is Level -> item.building.levels.remove(item)
-            is Wall -> item.level.walls.remove(item)
+            is Wall -> item.level.removeWall(item)
             is Opening -> item.wall.openings.remove(item)
             is OpeningItem -> item.opening.contents.remove(item)
             is Room -> item.level.rooms.remove(item)
