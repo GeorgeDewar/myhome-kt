@@ -1,9 +1,10 @@
 package nz.co.dewar.myhome.model
 
+import javafx.scene.Group
 import javafx.scene.shape.Polygon
-import javafx.scene.shape.Shape
 import javafx.scene.text.Font
 import javafx.scene.text.Text
+import javafx.scene.text.TextAlignment
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import nz.co.dewar.myhome.graphics2d.Polygon
@@ -42,14 +43,22 @@ data class Room(
             return Polygon(*intersections.toTypedArray())
         }
 
-    val label: Shape
+    val label: Group
         get() {
             val areaPolygon = internalArea
             val boundingBox = areaPolygon.boundsInLocal
             val centroid = Point2D(boundingBox.minX + boundingBox.width / 2, boundingBox.minY + boundingBox.height / 2)
-            return Text(centroid.x, centroid.y, name).apply {
+
+            val roomName = Text(centroid.x, centroid.y, name).apply {
+                textAlignment = TextAlignment.CENTER
                 font = Font.font(0.4)
             }
+            roomName.applyCss()
+            roomName.x = centroid.x - roomName.layoutBounds.width / 2
+            roomName.y = centroid.y + roomName.layoutBounds.height / 2
+
+            val stackPane = Group(roomName)
+            return stackPane
         }
 
     override val treeLabel = name
