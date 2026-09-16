@@ -1,14 +1,18 @@
 package nz.co.dewar.myhome.model
 
+import javafx.geometry.VPos
+import javafx.scene.Group
+import javafx.scene.Node
 import javafx.scene.shape.Polygon
-import javafx.scene.shape.Shape
 import javafx.scene.text.Font
 import javafx.scene.text.Text
 import javafx.scene.text.TextAlignment
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import nz.co.dewar.myhome.graphics2d.Polygon
+import nz.co.dewar.myhome.graphics2d.toJtsPolygon
 import nz.co.dewar.myhome.model.geom.Point2D
+import org.locationtech.jts.algorithm.construct.MaximumInscribedCircle
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -43,21 +47,27 @@ data class Room(
             return Polygon(*intersections.toTypedArray())
         }
 
-    val label: Shape
+    val label: Node
         get() {
             val areaPolygon = internalArea
-            val boundingBox = areaPolygon.boundsInLocal
-            val centroid = Point2D(boundingBox.minX + boundingBox.width / 2, boundingBox.minY + boundingBox.height / 2)
+            val maximumInscribedCircle = MaximumInscribedCircle(areaPolygon.toJtsPolygon(), 0.01)
 
-            val roomName = Text(centroid.x, centroid.y, name).apply {
+            val roomName = Text(maximumInscribedCircle.center.x, maximumInscribedCircle.center.y, name).apply {
                 textAlignment = TextAlignment.CENTER
-                font = Font.font(0.4)
+                textOrigin = VPos.TOP
+                font = Font.font(0.3)
                 applyCss()
-                x = centroid.x - layoutBounds.width / 2
-                y = centroid.y + layoutBounds.height / 2
+                x = maximumInscribedCircle.center.x - layoutBounds.width / 2
+                y = maximumInscribedCircle.center.y - layoutBounds.height / 2
+                while (!areaPolygon.boundsInLocal.contains(layoutBounds) && font.size > 0.1) {
+                    font = Font.font(font.size * 0.8)
+                    applyCss()
+                    x = maximumInscribedCircle.center.x - layoutBounds.width / 2
+                    y = maximumInscribedCircle.center.y - layoutBounds.height / 2
+                }
             }
 
-            return roomName
+            return Group(roomName)
         }
 
     override val treeLabel get() = name

@@ -4,21 +4,35 @@ import javafx.scene.shape.Line
 import javafx.scene.shape.Polygon
 import nz.co.dewar.myhome.model.geom.Point2D
 import nz.co.dewar.myhome.model.geom.Vector2D
+import org.locationtech.jts.geom.Coordinate
 
 fun Line(start: Point2D, end: Point2D): Line {
     return Line(start.x, start.y, end.x, end.y)
 }
 
 operator fun Line.plus(vector2D: Vector2D): Line {
-    return Line(Point2D(this.startX + vector2D.dX, this.startY + vector2D.dY),
-        Point2D(this.endX + vector2D.dX, this.endY + vector2D.dY))
+    return Line(
+        Point2D(this.startX + vector2D.dX, this.startY + vector2D.dY),
+        Point2D(this.endX + vector2D.dX, this.endY + vector2D.dY)
+    )
 }
 
 operator fun Line.minus(vector2D: Vector2D): Line {
-    return Line(Point2D(this.startX - vector2D.dX, this.startY - vector2D.dY),
-        Point2D(this.endX - vector2D.dX, this.endY - vector2D.dY))
+    return Line(
+        Point2D(this.startX - vector2D.dX, this.startY - vector2D.dY),
+        Point2D(this.endX - vector2D.dX, this.endY - vector2D.dY)
+    )
 }
 
 fun Polygon(vararg points: Point2D): Polygon {
     return Polygon(*points.flatMap { listOf(it.x, it.y) }.toDoubleArray())
+}
+
+fun Polygon.toJtsPolygon(): org.locationtech.jts.geom.Polygon {
+    val geometryFactory = org.locationtech.jts.geom.GeometryFactory()
+    val size = this.points.size / 2
+    val coordinates = mutableListOf<Coordinate>()
+    coordinates.addAll(this.points.chunked(2).map { Coordinate(it[0], it[1]) })
+    coordinates.add(coordinates[0])
+    return geometryFactory.createPolygon(coordinates.toTypedArray())
 }
