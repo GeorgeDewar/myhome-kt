@@ -41,6 +41,7 @@ data class Plan(
             is Wall -> item.level.walls.remove(item)
             is Opening -> item.wall.openings.remove(item)
             is OpeningItem -> item.opening.contents.remove(item)
+            is Room -> item.level.rooms.remove(item)
             else -> throw IllegalArgumentException("Unknown PlanItem type")
         }
     }
