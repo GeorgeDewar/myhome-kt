@@ -249,6 +249,16 @@ class PlanView2d(val mainWindow: MainWindow) {
                 }
             }
         }
+
+        for (room in plan.getRoomsOnLevel(level)) {
+            if (selectedItems.isNotEmpty() && selectedItems.last() == room) {
+                val highlightArea = getSelectionHighlight(room.internalArea)
+                content.children.add(highlightArea)
+            }
+
+            val labelShape = room.label
+            content.children.add(labelShape)
+        }
     }
 
     private fun getSelectionHighlight(highlightArea: Shape): Shape {

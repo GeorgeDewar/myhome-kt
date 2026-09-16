@@ -7,4 +7,7 @@ import kotlinx.serialization.Transient
 data class RoomWall(val ref: String) {
     @Transient
     lateinit var room: Room
+
+    @Transient
+    lateinit var wall: Wall
 }

@@ -2,18 +2,19 @@ package nz.co.dewar.myhome.model.util
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import nz.co.dewar.myhome.model.geom.Distance
+import nz.co.dewar.myhome.model.geom.metres
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
-import nz.co.dewar.myhome.model.geom.Distance
-import nz.co.dewar.myhome.model.geom.metres
 
 class InheritedPropertyTest {
     private val json = Json { encodeDefaults = false }
 
     @Serializable
     private data class TestBox(
-        val width: InheritedProperty<Distance> = InheritedProperty()
+        val width: InheritedProperty<Distance?> = InheritedProperty(null),
+        val height: InheritedProperty<Distance> = InheritedProperty(1.metres)
     )
 
     @Test
@@ -48,6 +49,9 @@ class InheritedPropertyTest {
     fun `deserializes absent value as inherited`() {
         val box = json.decodeFromString<TestBox>("{}")
 
-        assertEquals(InheritedProperty<Distance>(), box.width)
+        assertEquals(null, box.width.value)
+        assertEquals(false, box.width.isExplicit)
+        assertEquals(1.0, box.height.value.metres)
+        assertEquals(false, box.height.isExplicit)
     }
 }

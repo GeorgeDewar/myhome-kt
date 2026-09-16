@@ -28,6 +28,12 @@ data class Plan(
         }
     }
 
+    fun getRoomsOnLevel(level: Int): List<Room> {
+        return buildings.flatMap { building ->
+            building.levels.find { it.number == level }?.rooms ?: emptyList()
+        }
+    }
+
     fun deleteItem(item: PlanItem) {
         when (item) {
             is Building -> buildings.remove(item)

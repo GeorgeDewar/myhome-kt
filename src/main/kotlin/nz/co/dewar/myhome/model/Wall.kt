@@ -3,10 +3,8 @@ package nz.co.dewar.myhome.model
 import javafx.scene.shape.Polygon
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
-import nz.co.dewar.myhome.model.geom.Distance
-import nz.co.dewar.myhome.model.geom.Point2D
-import nz.co.dewar.myhome.model.geom.Vector2D
-import nz.co.dewar.myhome.model.geom.metres
+import nz.co.dewar.myhome.graphics2d.Polygon
+import nz.co.dewar.myhome.model.geom.*
 import nz.co.dewar.myhome.model.util.InheritedProperty
 
 @Serializable
@@ -26,14 +24,11 @@ data class Wall(
     @Transient
     lateinit var level: Level
 
-    @Transient
-    val vector = Vector2D(start, end)
+    val centerLine get() = Line2D(start, end)
+    val vector get() = Vector2D(start, end)
+    val unitDirection get() = vector.unit()
 
-    @Transient
-    val unitDirection = vector.unit()
-
-    val angle: Double
-        get() = vector.angle
+    val angle get() = vector.angle
 
     val areaPolygon: Polygon
         get() {
@@ -43,13 +38,12 @@ data class Wall(
             val extendedStart = start - (unitDirection * (thickness.value / 2))
             val extendedEnd = end + (unitDirection * (thickness.value / 2))
 
-            val points = listOf(
+            return Polygon(
                 extendedStart + halfThicknessNormal,
                 extendedEnd + halfThicknessNormal,
                 extendedEnd - halfThicknessNormal,
                 extendedStart - halfThicknessNormal
             )
-            return Polygon(*points.flatMap { listOf(it.x, it.y) }.toDoubleArray())
         }
 
     fun openingPolygon(opening: Opening): Polygon {
@@ -59,13 +53,12 @@ data class Wall(
         val openingStart = start + (unitDirection * opening.edgeDistanceFromWall)
         val openingEnd = openingStart + (unitDirection * opening.width)
 
-        val points = listOf(
+        return Polygon(
             openingStart + halfThicknessNormal,
             openingEnd + halfThicknessNormal,
             openingEnd - halfThicknessNormal,
             openingStart - halfThicknessNormal
         )
-        return Polygon(*points.flatMap { listOf(it.x, it.y) }.toDoubleArray())
     }
 
     override fun toString(): String {

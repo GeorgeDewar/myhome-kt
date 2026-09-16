@@ -25,6 +25,8 @@ data class Vector2D(val dX: Double, val dY: Double) {
 
     fun normal() = Vector2D(-dY, dX)
 
+    fun cross(other: Vector2D) = dX * other.dY - dY * other.dX
+
     override fun toString(): String {
         return "Vector($dX, $dY; l = $length)"
     }
