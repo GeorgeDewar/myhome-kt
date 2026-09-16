@@ -38,11 +38,11 @@ class StandardDoor(
 
     override fun render2D(wall: Wall, opening: Opening): Group {
         val relativeOpenAngle = 90.0
-        val doorStart = wall.start + wall.unitDirection * (opening.edgeDistanceFromWall + posX!!)
-        val doorEnd = doorStart + wall.unitDirection * width!!
+        val doorStart = wall.start + wall.unitDirection * (opening.edgeDistanceFromWall + posX.value)
+        val doorEnd = doorStart + wall.unitDirection * width.value
         val hingePosCentre = if (hingeSide == HingeSide.LEFT) doorStart else doorEnd
         val hingePosNormal =
-            wall.unitDirection.normal() * wall.thickness * (if (swingDirection == SwingDirection.INWARD) 0.5 else -0.5)
+            wall.unitDirection.normal() * wall.thickness.value * (if (swingDirection == SwingDirection.INWARD) 0.5 else -0.5)
         val hingePos = hingePosCentre + hingePosNormal
 
         val closedAngle = if (hingeSide == HingeSide.LEFT) wall.angle else (wall.angle + 180).mod(360.0)
@@ -53,8 +53,8 @@ class StandardDoor(
         // Leaf rectangle is initially drawn in the closed position, then rotated around the hinge point to simulate opening
         val doorLeaf = Polygon(
             hingePos,
-            hingePos + closedDirection * width!!,
-            hingePos + closedDirection * width!! - wall.unitDirection.normal() * thickness,
+            hingePos + closedDirection * width.value,
+            hingePos + closedDirection * width.value - wall.unitDirection.normal() * thickness,
             hingePos - wall.unitDirection.normal() * thickness
         )
         doorLeaf.fill = null
@@ -67,8 +67,8 @@ class StandardDoor(
         val doorArc = Arc()
         doorArc.centerX = hingePos.x
         doorArc.centerY = hingePos.y
-        doorArc.radiusX = width!!.metres
-        doorArc.radiusY = width!!.metres
+        doorArc.radiusX = width.value.metres
+        doorArc.radiusY = width.value.metres
         doorArc.startAngle = closedAngle
         doorArc.length = sweepAngle
         doorArc.fill = null

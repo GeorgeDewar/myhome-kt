@@ -5,6 +5,7 @@ import kotlinx.serialization.Transient
 import nz.co.dewar.myhome.model.geom.Distance
 import nz.co.dewar.myhome.model.geom.sumOf
 import nz.co.dewar.myhome.model.openingitem.OpeningItem
+import nz.co.dewar.myhome.model.util.InheritedProperty
 
 @Serializable
 data class Opening(
@@ -29,8 +30,8 @@ data class Opening(
 
     init {
         // Resolve dimensions of contents
-        val currentWidthSum = contents.sumOf { it.width ?: Distance.ZERO }
-        val currentHeightSum = contents.sumOf { it.height ?: Distance.ZERO }
+        val currentWidthSum = contents.sumOf { it.width.value }
+        val currentHeightSum = contents.sumOf { it.height.value }
 
         check(currentWidthSum <= width) { "Total width of contents ($currentWidthSum) exceeds opening width ($width)" }
         check(currentHeightSum <= height) { "Total height of contents ($currentHeightSum) exceeds opening height ($height)" }
@@ -40,8 +41,8 @@ data class Opening(
             val remainingWidth = width - currentWidthSum
             val widthPerItem = remainingWidth / contents.size
             contents.forEach { item ->
-                if (item.width == null) {
-                    item.width = widthPerItem
+                if (!item.width.isExplicit) {
+                    item.width = InheritedProperty(widthPerItem)
                 }
             }
         }
@@ -51,19 +52,19 @@ data class Opening(
             val remainingHeight = height - currentHeightSum
             val heightPerItem = remainingHeight / contents.size
             contents.forEach { item ->
-                if (item.height == null) {
-                    item.height = heightPerItem
+                if (!item.height.isExplicit) {
+                    item.height = InheritedProperty(heightPerItem)
                 }
             }
         }
 
         contents.forEach { item ->
             // Placeholder for logic to determine posX and posY based on alignment and distribution rules
-            if (item.posX == null) {
-                item.posX = Distance.ZERO
+            if (!item.posX.isExplicit) {
+                item.posX = InheritedProperty(Distance.ZERO)
             }
-            if (item.posY == null) {
-                item.posY = Distance.ZERO
+            if (!item.posY.isExplicit) {
+                item.posY = InheritedProperty(Distance.ZERO)
             }
         }
     }

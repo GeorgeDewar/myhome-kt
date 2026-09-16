@@ -7,13 +7,14 @@ import nz.co.dewar.myhome.model.geom.Distance
 import nz.co.dewar.myhome.model.geom.Point2D
 import nz.co.dewar.myhome.model.geom.Vector2D
 import nz.co.dewar.myhome.model.geom.metres
+import nz.co.dewar.myhome.model.util.InheritedProperty
 
 @Serializable
 data class Wall(
     val id: String,
     val start: Point2D,
     val end: Point2D,
-    val thickness: Distance = 0.1.metres,
+    val thickness: InheritedProperty<Distance> = InheritedProperty(0.1.metres),
     val openings: MutableList<Opening> = mutableListOf()
 ) : SelectableItem {
     init {
@@ -37,10 +38,10 @@ data class Wall(
     val areaPolygon: Polygon
         get() {
             val unitNormal = unitDirection.normal()
-            val halfThicknessNormal = unitNormal * (thickness / 2.0)
+            val halfThicknessNormal = unitNormal * (thickness.value / 2)
 
-            val extendedStart = start - (unitDirection * (thickness / 2.0))
-            val extendedEnd = end + (unitDirection * (thickness / 2.0))
+            val extendedStart = start - (unitDirection * (thickness.value / 2))
+            val extendedEnd = end + (unitDirection * (thickness.value / 2))
 
             val points = listOf(
                 extendedStart + halfThicknessNormal,
@@ -53,7 +54,7 @@ data class Wall(
 
     fun openingPolygon(opening: Opening): Polygon {
         val unitNormal = unitDirection.normal()
-        val halfThicknessNormal = unitNormal * (thickness / 2.0)
+        val halfThicknessNormal = unitNormal * (thickness.value / 2)
 
         val openingStart = start + (unitDirection * opening.edgeDistanceFromWall)
         val openingEnd = openingStart + (unitDirection * opening.width)

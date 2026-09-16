@@ -19,7 +19,7 @@ class StandardWindow(override val id: String? = null) : OpeningItem() {
         val lineThickness = 0.01
         val windowStart = wall.start + wall.unitDirection * opening.edgeDistanceFromWall
         val windowEnd = windowStart + wall.unitDirection * opening.width
-        val halfThicknessNormal = wall.unitDirection.normal() * (wall.thickness / 2.0)
+        val halfThicknessNormal = wall.unitDirection.normal() * (wall.thickness.value / 2.0)
 
         val centerLine = Line(windowStart, windowEnd)
         val lineA = centerLine + halfThicknessNormal
