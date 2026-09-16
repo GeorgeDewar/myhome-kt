@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory
 data class Room(
     val name: String,
     val walls: MutableList<RoomWall>,
-) : PlanItem {
+) : SelectableItem {
     private val logger: Logger = LoggerFactory.getLogger(Room::class.java)
 
     @Transient

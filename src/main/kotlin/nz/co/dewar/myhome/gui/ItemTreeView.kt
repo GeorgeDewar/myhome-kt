@@ -42,9 +42,13 @@ class ItemTreeView {
                 val levelItem = TreeItem<PlanItem>(level).apply { isExpanded = true }
                 buildingItem.children.add(levelItem)
 
+                val wallsItem = TreeItem<PlanItem>(object : PlanItem {
+                    override val treeLabel = "Walls"
+                }).apply { isExpanded = true }
+                levelItem.children.add(wallsItem)
                 for (wall in level.walls) {
                     val wallItem = TreeItem<PlanItem>(wall)
-                    levelItem.children.add(wallItem)
+                    wallsItem.children.add(wallItem)
 
                     for (opening in wall.openings) {
                         val openingItem = TreeItem<PlanItem>(opening)
@@ -57,9 +61,13 @@ class ItemTreeView {
                     }
                 }
 
+                val roomsItem = TreeItem<PlanItem>(object : PlanItem {
+                    override val treeLabel = "Rooms"
+                }).apply { isExpanded = true }
+                levelItem.children.add(roomsItem)
                 for (room in level.rooms) {
                     val roomItem = TreeItem<PlanItem>(room).apply { isExpanded = true }
-                    levelItem.children.add(roomItem)
+                    roomsItem.children.add(roomItem)
                 }
             }
         }

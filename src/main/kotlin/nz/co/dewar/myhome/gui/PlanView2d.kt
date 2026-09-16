@@ -119,6 +119,13 @@ class PlanView2d(val mainWindow: MainWindow) {
                         }
                     }
                 }
+
+                for (room in plan.getRoomsOnLevel(level)) {
+                    if (room.internalArea.contains(clickedPointInContent)) {
+                        selectedItems.add(room)
+                    }
+                }
+
                 onUpdate?.invoke()
 
                 for (item in selectedItems) {
