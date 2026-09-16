@@ -1,7 +1,7 @@
 package nz.co.dewar.myhome.model
 
-import javafx.scene.Group
 import javafx.scene.shape.Polygon
+import javafx.scene.shape.Shape
 import javafx.scene.text.Font
 import javafx.scene.text.Text
 import javafx.scene.text.TextAlignment
@@ -43,7 +43,7 @@ data class Room(
             return Polygon(*intersections.toTypedArray())
         }
 
-    val label: Group
+    val label: Shape
         get() {
             val areaPolygon = internalArea
             val boundingBox = areaPolygon.boundsInLocal
@@ -52,13 +52,12 @@ data class Room(
             val roomName = Text(centroid.x, centroid.y, name).apply {
                 textAlignment = TextAlignment.CENTER
                 font = Font.font(0.4)
+                applyCss()
+                x = centroid.x - layoutBounds.width / 2
+                y = centroid.y + layoutBounds.height / 2
             }
-            roomName.applyCss()
-            roomName.x = centroid.x - roomName.layoutBounds.width / 2
-            roomName.y = centroid.y + roomName.layoutBounds.height / 2
 
-            val stackPane = Group(roomName)
-            return stackPane
+            return roomName
         }
 
     override val treeLabel = name
