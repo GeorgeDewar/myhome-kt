@@ -1,5 +1,6 @@
 package nz.co.dewar.myhome.gui
 
+import nz.co.dewar.myhome.graphics3d.CameraState
 import nz.co.dewar.myhome.model.Plan
 import nz.co.dewar.myhome.model.SelectableItem
 
@@ -34,8 +35,13 @@ object ApplicationContext {
         selectionChangeListeners.forEach { it() }
     }
 
+    fun cameraMoved(cameraState: CameraState) {
+        cameraMoveListeners.forEach { it(cameraState) }
+    }
+
     // Collections of listeners for changes in application context properties
     var planChangeListeners = mutableListOf<() -> Unit>()
     var levelChangeListeners = mutableListOf<() -> Unit>()
     var selectionChangeListeners = mutableListOf<() -> Unit>()
+    var cameraMoveListeners = mutableListOf<(cameraState: CameraState) -> Unit>()
 }

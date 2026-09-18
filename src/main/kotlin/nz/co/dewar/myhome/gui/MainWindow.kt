@@ -43,7 +43,7 @@ class MainWindow(val stage: Stage) {
         root.left = itemTree.treeView
 
         tabPane.tabs.add(Tab("2D View", planView2d.pane).apply { isClosable = false })
-        tabPane.tabs.add(Tab("3D View", planView3d.root).apply { isClosable = false })
+        tabPane.tabs.add(Tab("3D View", planView3d.subScene).apply { isClosable = false })
         root.center = tabPane
 
         val statusBar = StatusBar()

@@ -5,6 +5,7 @@ import javafx.geometry.Orientation
 import javafx.scene.control.Label
 import javafx.scene.control.Separator
 import javafx.scene.layout.HBox
+import kotlin.math.roundToInt
 
 class StatusBar {
     val root = HBox()
@@ -12,6 +13,7 @@ class StatusBar {
     val cursorPositionLabel = Label()
     val scaleLabel = Label()
     val offsetLabel = Label()
+    val cameraLabel = Label()
 
     init {
         root.padding = Insets(6.0, 10.0, 6.0, 10.0)
@@ -26,6 +28,13 @@ class StatusBar {
         root.children.add(scaleLabel)
         root.children.add(Separator(Orientation.VERTICAL))
         root.children.add(offsetLabel)
+        root.children.add(Separator(Orientation.VERTICAL))
+        root.children.add(cameraLabel)
+
+        ApplicationContext.cameraMoveListeners.add { camera ->
+            cameraLabel.text =
+                "Camera Pos: (${camera.posX}, ${camera.posY}, ${camera.posZ}), Angle: (${camera.angleX.roundToInt()}, ${camera.angleY.roundToInt()}, ${camera.angleZ.roundToInt()})"
+        }
     }
 
 }
