@@ -124,8 +124,8 @@ class Renderer3D {
         renderGridAndYAxis()
         for (wall in plan.getWallsOnLevel(level)) {
             val wall3D = Box(wall.vector.length.metres, 2.4, wall.thickness.value.metres)
-            wall3D.translateX = wall.centerLine.start.x
-            wall3D.translateZ = wall.centerLine.start.y
+            wall3D.translateX = (wall.centerLine.start.x + wall.centerLine.end.x) / 2.0
+            wall3D.translateZ = (wall.centerLine.start.y + wall.centerLine.end.y) / 2.0
             val wallRotate = Rotate(wall.angle, Rotate.Y_AXIS)
             wall3D.transforms.add(wallRotate)
             wall3D.drawMode = DrawMode.FILL
